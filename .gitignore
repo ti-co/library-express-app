@@ -1,3 +1,6 @@
+# MongooseDB password
+.env
+
 # Logs
 logs
 *.log
