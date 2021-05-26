@@ -5,6 +5,8 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var compression = require('compression'); 
 var helmet = require('helmet');
+var dotenv = require('dotenv');
+dotenv.config();
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
@@ -14,7 +16,8 @@ var app = express();
 
 //Set up mongoose connection
 var mongoose = require('mongoose');
-var mongoDB = `mongodb+srv://${MONGOOSE_DB_PASSWORD}@cluster0.h8dnm.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`;
+var dev_db_url = process.env.MONGOOSE_DB_URL;
+var mongoDB = process.env.MONGODB_URI || dev_db_url;
 mongoose.connect(mongoDB, { useNewUrlParser: true , useUnifiedTopology: true});
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));
